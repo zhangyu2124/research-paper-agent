@@ -7,15 +7,31 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+# Retrieval models are installed under models/ and must never fetch at request time.
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
 from langchain.tools import tool
+
+from src.tools.hybrid_retrieval import (
+    bm25_ranking,
+    chunk_retrieval_text,
+    deduplicate_ranked_hits,
+    dense_ranking,
+    reciprocal_rank_fusion,
+    tokenize_for_bm25,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PAPER_LIBRARY_PATH = PROJECT_ROOT / "data" / "papers" / "papers.jsonl"
 DEFAULT_PAPER_CHUNKS_PATH = PROJECT_ROOT / "data" / "papers" / "paper_chunks.jsonl"
 DEFAULT_PAPER_VECTOR_INDEX_PATH = PROJECT_ROOT / "data" / "papers" / "paper_vector_index.npz"
 DEFAULT_EMBEDDING_MODEL_PATH = PROJECT_ROOT / "models" / "gte-multilingual-base"
+DEFAULT_RERANKER_MODEL_PATH = PROJECT_ROOT / "models" / "bge-reranker-v2-m3"
 DEFAULT_EMBEDDING_MAX_SEQ_LENGTH = 512
+DEFAULT_RERANKER_MAX_SEQ_LENGTH = 512
 MAX_TOP_K = 10
+MAX_RETRIEVAL_CANDIDATES = 100
 MAX_CHUNK_TEXT_CHARS = 1100
 
 QUERY_ALIASES = {
@@ -77,12 +93,29 @@ def _embedding_model_path() -> Path:
     return path if path.is_absolute() else PROJECT_ROOT / path
 
 
+def _reranker_model_path() -> Path:
+    """Return the configured local cross-encoder reranker path."""
+    configured = os.getenv("RERANKER_MODEL_PATH")
+    if not configured:
+        return DEFAULT_RERANKER_MODEL_PATH
+
+    path = Path(configured)
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
 def _configure_huggingface_cache() -> None:
     """Keep embedding model caches inside the project by default."""
     cache_dir = PROJECT_ROOT / "models" / ".cache" / "huggingface"
     os.environ.setdefault("HF_HOME", str(cache_dir))
     os.environ.setdefault("HF_HUB_CACHE", str(cache_dir / "hub"))
     os.environ.setdefault("SENTENCE_TRANSFORMERS_HOME", str(cache_dir / "sentence_transformers"))
+
+
+def _configure_offline_model_loading() -> None:
+    """Prevent locally installed retrieval models from checking the network."""
+    _configure_huggingface_cache()
+    os.environ["HF_HUB_OFFLINE"] = "1"
+    os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
 
 @lru_cache(maxsize=1)
@@ -160,7 +193,7 @@ def _load_vector_index() -> tuple[list[str], Any]:
 @lru_cache(maxsize=1)
 def _load_embedding_model() -> Any:
     """Load the local sentence embedding model lazily."""
-    _configure_huggingface_cache()
+    _configure_offline_model_loading()
     from sentence_transformers import SentenceTransformer
 
     model_path = _embedding_model_path()
@@ -173,6 +206,46 @@ def _load_embedding_model() -> Any:
     max_seq_length = int(os.getenv("EMBEDDING_MAX_SEQ_LENGTH", DEFAULT_EMBEDDING_MAX_SEQ_LENGTH))
     model.max_seq_length = max_seq_length
     return model
+
+
+@lru_cache(maxsize=1)
+def _load_bm25_index() -> tuple[list[str], Any]:
+    """Build a lightweight in-memory BM25 index for the local chunk corpus."""
+    from rank_bm25 import BM25Okapi
+
+    chunks = _load_chunks()
+    chunk_ids = [str(chunk["chunk_id"]) for chunk in chunks]
+    tokenized_corpus = [
+        tokenize_for_bm25(chunk_retrieval_text(chunk))
+        for chunk in chunks
+    ]
+    return chunk_ids, BM25Okapi(tokenized_corpus)
+
+
+@lru_cache(maxsize=1)
+def _load_reranker_model() -> Any:
+    """Load the local multilingual cross-encoder only when reranking is used."""
+    _configure_offline_model_loading()
+    from sentence_transformers import CrossEncoder
+
+    model_path = _reranker_model_path()
+    if not model_path.exists():
+        raise FileNotFoundError(
+            f"Reranker model not found: {model_path}. "
+            "Run scripts/download_reranker_model.py first."
+        )
+    return CrossEncoder(
+        str(model_path),
+        max_length=int(
+            os.getenv(
+                "RERANKER_MAX_SEQ_LENGTH",
+                str(DEFAULT_RERANKER_MAX_SEQ_LENGTH),
+            )
+        ),
+        trust_remote_code=True,
+        tokenizer_args={"local_files_only": True},
+        automodel_args={"local_files_only": True},
+    )
 
 
 def _expand_query(query: str) -> str:
@@ -308,6 +381,228 @@ def _format_vector_chunk_result(index: int, chunk: dict[str, Any], similarity: f
         f"Source File: {chunk.get('source_file', 'Unknown')}\n"
         f"Similarity Score: {similarity:.4f}\n"
         f"Content: {content}"
+    )
+
+
+def _dense_chunk_ranking(query: str, top_n: int) -> list[tuple[str, float]]:
+    """Retrieve chunk candidates with normalized embedding similarity."""
+    model = _load_embedding_model()
+    chunk_ids, embeddings = _load_vector_index()
+    query_vector = model.encode(
+        [_expand_query(query)],
+        normalize_embeddings=True,
+        convert_to_numpy=True,
+    ).astype("float32")[0]
+    similarities = embeddings @ query_vector
+    return dense_ranking(chunk_ids, similarities, top_n)
+
+
+def _bm25_chunk_ranking(query: str, top_n: int) -> list[tuple[str, float]]:
+    """Retrieve exact-term candidates with BM25."""
+    chunk_ids, bm25 = _load_bm25_index()
+    return bm25_ranking(
+        query_tokens=tokenize_for_bm25(_expand_query(query)),
+        chunk_ids=chunk_ids,
+        bm25=bm25,
+        top_n=top_n,
+    )
+
+
+def _single_source_hits(
+    source: str,
+    ranking: list[tuple[str, float]],
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "chunk_id": chunk_id,
+            "rrf_score": None,
+            "source_ranks": {source: rank},
+            "source_scores": {source: score},
+        }
+        for rank, (chunk_id, score) in enumerate(ranking, 1)
+    ]
+
+
+def _rerank_hits(
+    query: str,
+    hits: list[dict[str, Any]],
+    chunks_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Score query-passage pairs with the local multilingual cross-encoder."""
+    if not hits:
+        return []
+    model = _load_reranker_model()
+    pairs = [
+        [query, chunk_retrieval_text(chunks_by_id[str(hit["chunk_id"])])]
+        for hit in hits
+    ]
+    scores = model.predict(
+        pairs,
+        batch_size=int(os.getenv("RERANKER_BATCH_SIZE", "8")),
+        show_progress_bar=False,
+        convert_to_numpy=True,
+    )
+    reranked = []
+    for hit, score in zip(hits, scores, strict=True):
+        updated = dict(hit)
+        updated["rerank_score"] = float(score)
+        reranked.append(updated)
+    return sorted(
+        reranked,
+        key=lambda hit: (-hit["rerank_score"], -float(hit.get("rrf_score") or 0.0), hit["chunk_id"]),
+    )
+
+
+def retrieve_paper_evidence(
+    query: str,
+    *,
+    top_k: int = 6,
+    candidate_k: int = 20,
+    mode: str = "hybrid_rerank",
+) -> list[dict[str, Any]]:
+    """Run dense, BM25, hybrid, or hybrid-plus-reranker retrieval."""
+    supported_modes = {"dense", "bm25", "hybrid", "hybrid_rerank"}
+    if mode not in supported_modes:
+        raise ValueError(f"Unsupported retrieval mode: {mode}")
+    if not query.strip():
+        raise ValueError("query must not be empty.")
+
+    top_k = max(1, min(int(top_k), MAX_RETRIEVAL_CANDIDATES))
+    candidate_k = max(top_k, min(int(candidate_k), MAX_RETRIEVAL_CANDIDATES))
+    retrieval_pool = min(MAX_RETRIEVAL_CANDIDATES, candidate_k * 2)
+    chunks_by_id = _load_chunks_by_id()
+
+    dense_results: list[tuple[str, float]] = []
+    bm25_results: list[tuple[str, float]] = []
+    if mode in {"dense", "hybrid", "hybrid_rerank"}:
+        dense_results = _dense_chunk_ranking(query, retrieval_pool)
+    if mode in {"bm25", "hybrid", "hybrid_rerank"}:
+        bm25_results = _bm25_chunk_ranking(query, retrieval_pool)
+
+    if mode == "dense":
+        ranked_hits = _single_source_hits("dense", dense_results)
+    elif mode == "bm25":
+        ranked_hits = _single_source_hits("bm25", bm25_results)
+    else:
+        ranked_hits = reciprocal_rank_fusion(
+            {"dense": dense_results, "bm25": bm25_results},
+            rrf_k=int(os.getenv("PAPER_RRF_K", "60")),
+        )
+
+    candidates = deduplicate_ranked_hits(
+        ranked_hits,
+        chunks_by_id,
+        limit=candidate_k,
+    )
+    if mode == "hybrid_rerank":
+        candidates = _rerank_hits(query, candidates, chunks_by_id)
+
+    results: list[dict[str, Any]] = []
+    for rank, hit in enumerate(candidates[:top_k], 1):
+        chunk = chunks_by_id[str(hit["chunk_id"])]
+        source_ranks = hit.get("source_ranks", {})
+        source_scores = hit.get("source_scores", {})
+        results.append(
+            {
+                "rank": rank,
+                "mode": mode,
+                "chunk_id": str(chunk.get("chunk_id")),
+                "paper_id": str(chunk.get("paper_id")),
+                "title": str(chunk.get("title") or "Untitled"),
+                "page": chunk.get("page"),
+                "section": chunk.get("section") or "Unknown",
+                "source_file": chunk.get("source_file") or "Unknown",
+                "content": str(chunk.get("content") or ""),
+                "dense_rank": source_ranks.get("dense"),
+                "dense_score": source_scores.get("dense"),
+                "bm25_rank": source_ranks.get("bm25"),
+                "bm25_score": source_scores.get("bm25"),
+                "rrf_score": hit.get("rrf_score"),
+                "rerank_score": hit.get("rerank_score"),
+                "duplicate_chunk_ids": hit.get("duplicate_chunk_ids", []),
+            }
+        )
+    return results
+
+
+def _format_hybrid_evidence(result: dict[str, Any]) -> str:
+    content = str(result["content"])
+    if len(content) > MAX_CHUNK_TEXT_CHARS:
+        content = content[:MAX_CHUNK_TEXT_CHARS].rstrip() + "..."
+
+    score_parts = []
+    if result.get("dense_score") is not None:
+        score_parts.append(
+            f"Dense={result['dense_score']:.4f} (rank {result['dense_rank']})"
+        )
+    if result.get("bm25_score") is not None:
+        score_parts.append(
+            f"BM25={result['bm25_score']:.4f} (rank {result['bm25_rank']})"
+        )
+    if result.get("rrf_score") is not None:
+        score_parts.append(f"RRF={result['rrf_score']:.6f}")
+    if result.get("rerank_score") is not None:
+        score_parts.append(f"Reranker={result['rerank_score']:.4f}")
+
+    duplicate_line = ""
+    if result.get("duplicate_chunk_ids"):
+        duplicate_line = (
+            "Equivalent Chunk IDs: "
+            + ", ".join(result["duplicate_chunk_ids"])
+            + "\n"
+        )
+    return (
+        f"Evidence {result['rank']}:\n"
+        f"Retrieval Mode: {result['mode']}\n"
+        f"Chunk ID: {result['chunk_id']}\n"
+        f"Paper ID: {result['paper_id']}\n"
+        f"Title: {result['title']}\n"
+        f"Page: {result['page']}\n"
+        f"Section: {result['section']}\n"
+        f"Source File: {result['source_file']}\n"
+        f"Scores: {', '.join(score_parts) or 'Unavailable'}\n"
+        f"{duplicate_line}"
+        f"Content: {content}"
+    )
+
+
+@tool
+def search_paper_evidence(query: str, top_k: int = 6) -> str:
+    """Retrieve page-level evidence with Dense + BM25 + RRF + optional reranking.
+
+    Use this as the default evidence search for methods, experiments,
+    definitions, limitations, comparisons, and Chinese queries over English PDFs.
+    """
+    top_k = max(1, min(top_k, MAX_TOP_K))
+    reranker_enabled = os.getenv("RERANKER_ENABLED", "false").lower() not in {
+        "0",
+        "false",
+        "no",
+    }
+    requested_mode = "hybrid_rerank" if reranker_enabled else "hybrid"
+    fallback_note = ""
+    try:
+        results = retrieve_paper_evidence(
+            query,
+            top_k=top_k,
+            candidate_k=max(20, top_k),
+            mode=requested_mode,
+        )
+    except FileNotFoundError as exc:
+        if requested_mode != "hybrid_rerank":
+            return str(exc)
+        results = retrieve_paper_evidence(
+            query,
+            top_k=top_k,
+            candidate_k=max(20, top_k),
+            mode="hybrid",
+        )
+        fallback_note = f"Reranker unavailable; used hybrid retrieval only. {exc}\n\n"
+
+    if not results:
+        return "No matching paper evidence was found. Try a broader query."
+    return fallback_note + "\n---\n\n".join(
+        _format_hybrid_evidence(result) for result in results
     )
 
 

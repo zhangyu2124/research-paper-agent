@@ -1,0 +1,102 @@
+[
+  {
+    "id": "raptor_tree_retrieval_en",
+    "query": "Which paper proposes recursive abstractive processing and a tree-organized retrieval system called RAPTOR?",
+    "relevant_groups": [["2401_18059v1", "2401_18059v1_2"]]
+  },
+  {
+    "id": "raptor_tree_retrieval_zh",
+    "query": "哪篇论文通过递归摘要构建树结构，从不同抽象层级检索长文档？",
+    "relevant_groups": [["2401_18059v1", "2401_18059v1_2"]]
+  },
+  {
+    "id": "longagent_128k",
+    "query": "使用 leader 和 member 多智能体协作把语言模型上下文扩展到 128K 的方法",
+    "relevant_groups": [["2402_11550v2"]]
+  },
+  {
+    "id": "snapkv_cache",
+    "query": "observation window and clustered voting for KV cache compression during LLM generation",
+    "relevant_groups": [["2404_14469v2"]]
+  },
+  {
+    "id": "graphreader_long_context",
+    "query": "将长文本构造成图并由智能体探索节点以增强长上下文推理的论文",
+    "relevant_groups": [["2406_14550v2"]]
+  },
+  {
+    "id": "longwriter_agentwrite",
+    "query": "AgentWrite divide-and-conquer plan for generating more than 10,000 words",
+    "relevant_groups": [["2408_07055v1"]]
+  },
+  {
+    "id": "longalign_packing",
+    "query": "LongAlign Self-Instruct data and packing strategies for long context alignment",
+    "relevant_groups": [["2401_18058v1"]]
+  },
+  {
+    "id": "gradient_cache_500k",
+    "query": "使用 gradient caching 端到端训练并处理五十万 token 长文档摘要",
+    "relevant_groups": [["2501_01805v2"]]
+  },
+  {
+    "id": "context_aware_merging",
+    "query": "通过 context-aware hierarchical merging 减少长文档摘要幻觉",
+    "relevant_groups": [["2502_00977v2", "2502_00977v2_2"]]
+  },
+  {
+    "id": "nexussum_agents",
+    "query": "hierarchical LLM agents for dialogue-to-description long-form narrative summarization",
+    "relevant_groups": [["2025_acl_long_500"]]
+  },
+  {
+    "id": "mapreduce_dependencies",
+    "query": "MapReduce long sequence processing that handles inter-chunk dependency and conflict",
+    "relevant_groups": [["2025_acl_long_1341"]]
+  },
+  {
+    "id": "middle_position_bias",
+    "query": "大模型摘要中的 position bias 和 middle information utilization 问题",
+    "relevant_groups": [["2024_acl_long_153"]]
+  },
+  {
+    "id": "aflow_mcts",
+    "query": "通过 Monte Carlo Tree Search 和代码表示自动搜索 Agent workflow",
+    "relevant_groups": [["2410_10762v4"]]
+  },
+  {
+    "id": "a2flow_abstraction",
+    "query": "self-adaptive abstraction operators for automatic agentic workflow generation",
+    "relevant_groups": [["2511_20693v1"]]
+  },
+  {
+    "id": "agent_workflow_generation",
+    "query": "自动生成和优化大模型智能体工作流的方法有哪些？",
+    "relevant_groups": [["2410_10762v4"], ["2511_20693v1"]]
+  },
+  {
+    "id": "agentic_context_engineering",
+    "query": "evolving contexts for self-improving language models and avoiding context collapse",
+    "relevant_groups": [["2510_04618v1"]]
+  },
+  {
+    "id": "agentswift_value_search",
+    "query": "value-guided hierarchical search for efficient LLM agent design",
+    "relevant_groups": [["2506_06017v2"]]
+  },
+  {
+    "id": "cothssum_hierarchical",
+    "query": "结合 chain-of-thought reasoning 与 hierarchical segmentation 的结构化长文档摘要",
+    "relevant_groups": [["cothssum_structured_long_document_summarization_vi"]]
+  },
+  {
+    "id": "divide_summarize_slm",
+    "query": "Divide and Summarize method that improves small language model text summarization",
+    "relevant_groups": [["frai_8_1604034"]]
+  },
+  {
+    "id": "prompt_r1_rl",
+    "query": "small and large language model collaboration for automatic prompting using reinforcement learning",
+    "relevant_groups": [["2511_01016v2"]]
+  }
+]

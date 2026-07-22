@@ -16,9 +16,8 @@ from src.tools.paper_tools import (
     get_paper_chunk_context,
     get_paper_detail,
     list_papers,
-    search_paper_chunks,
+    search_paper_evidence,
     search_papers,
-    search_paper_vectors,
 )
 
 # Set up logging for this module
@@ -32,8 +31,7 @@ logger.info("Using local research paper agent prompt")
 
 docs_agent_tools = [
     search_papers,
-    search_paper_vectors,
-    search_paper_chunks,
+    search_paper_evidence,
     get_paper_detail,
     get_paper_chunk_context,
     list_papers,

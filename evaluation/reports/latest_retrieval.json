@@ -1,0 +1,974 @@
+{
+  "generated_at": "2026-07-22T09:53:11.468157+00:00",
+  "corpus": {
+    "papers": 20,
+    "unique_titles": 18,
+    "chunks": 1569
+  },
+  "settings": {
+    "top_k": 10,
+    "candidate_k": 20,
+    "warmup": true
+  },
+  "results": [
+    {
+      "mode": "dense",
+      "case_count": 20,
+      "recall_at_5": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "mean_latency_ms": 57.59574999974575,
+      "p95_latency_ms": 65.15979999676347,
+      "cases": [
+        {
+          "id": "raptor_tree_retrieval_en",
+          "query": "Which paper proposes recursive abstractive processing and a tree-organized retrieval system called RAPTOR?",
+          "ranked_paper_ids": [
+            "2401_18059v1_2",
+            "2401_18059v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 62.23820000013802
+        },
+        {
+          "id": "raptor_tree_retrieval_zh",
+          "query": "哪篇论文通过递归摘要构建树结构，从不同抽象层级检索长文档？",
+          "ranked_paper_ids": [
+            "2401_18059v1_2",
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 67.25079999887384
+        },
+        {
+          "id": "longagent_128k",
+          "query": "使用 leader 和 member 多智能体协作把语言模型上下文扩展到 128K 的方法",
+          "ranked_paper_ids": [
+            "2402_11550v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.55140000535175
+        },
+        {
+          "id": "snapkv_cache",
+          "query": "observation window and clustered voting for KV cache compression during LLM generation",
+          "ranked_paper_ids": [
+            "2404_14469v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 56.86029999924358
+        },
+        {
+          "id": "graphreader_long_context",
+          "query": "将长文本构造成图并由智能体探索节点以增强长上下文推理的论文",
+          "ranked_paper_ids": [
+            "2406_14550v2",
+            "2402_11550v2",
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 65.15979999676347
+        },
+        {
+          "id": "longwriter_agentwrite",
+          "query": "AgentWrite divide-and-conquer plan for generating more than 10,000 words",
+          "ranked_paper_ids": [
+            "2408_07055v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 56.392099999357015
+        },
+        {
+          "id": "longalign_packing",
+          "query": "LongAlign Self-Instruct data and packing strategies for long context alignment",
+          "ranked_paper_ids": [
+            "2401_18058v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 56.87230000330601
+        },
+        {
+          "id": "gradient_cache_500k",
+          "query": "使用 gradient caching 端到端训练并处理五十万 token 长文档摘要",
+          "ranked_paper_ids": [
+            "2501_01805v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 58.15029999939725
+        },
+        {
+          "id": "context_aware_merging",
+          "query": "通过 context-aware hierarchical merging 减少长文档摘要幻觉",
+          "ranked_paper_ids": [
+            "2502_00977v2_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.27049999102019
+        },
+        {
+          "id": "nexussum_agents",
+          "query": "hierarchical LLM agents for dialogue-to-description long-form narrative summarization",
+          "ranked_paper_ids": [
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 57.12230000062846
+        },
+        {
+          "id": "mapreduce_dependencies",
+          "query": "MapReduce long sequence processing that handles inter-chunk dependency and conflict",
+          "ranked_paper_ids": [
+            "2025_acl_long_1341"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 56.111400001100264
+        },
+        {
+          "id": "middle_position_bias",
+          "query": "大模型摘要中的 position bias 和 middle information utilization 问题",
+          "ranked_paper_ids": [
+            "2024_acl_long_153",
+            "2401_18058v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 53.20490000303835
+        },
+        {
+          "id": "aflow_mcts",
+          "query": "通过 Monte Carlo Tree Search 和代码表示自动搜索 Agent workflow",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 51.664400001754984
+        },
+        {
+          "id": "a2flow_abstraction",
+          "query": "self-adaptive abstraction operators for automatic agentic workflow generation",
+          "ranked_paper_ids": [
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 53.90559999796096
+        },
+        {
+          "id": "agent_workflow_generation",
+          "query": "自动生成和优化大模型智能体工作流的方法有哪些？",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2511_20693v1",
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 56.60890000581276
+        },
+        {
+          "id": "agentic_context_engineering",
+          "query": "evolving contexts for self-improving language models and avoiding context collapse",
+          "ranked_paper_ids": [
+            "2510_04618v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 54.27619999682065
+        },
+        {
+          "id": "agentswift_value_search",
+          "query": "value-guided hierarchical search for efficient LLM agent design",
+          "ranked_paper_ids": [
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 54.105899995192885
+        },
+        {
+          "id": "cothssum_hierarchical",
+          "query": "结合 chain-of-thought reasoning 与 hierarchical segmentation 的结构化长文档摘要",
+          "ranked_paper_ids": [
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 62.57019999611657
+        },
+        {
+          "id": "divide_summarize_slm",
+          "query": "Divide and Summarize method that improves small language model text summarization",
+          "ranked_paper_ids": [
+            "frai_8_1604034"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 55.963799997698516
+        },
+        {
+          "id": "prompt_r1_rl",
+          "query": "small and large language model collaboration for automatic prompting using reinforcement learning",
+          "ranked_paper_ids": [
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 52.63570000533946
+        }
+      ]
+    },
+    {
+      "mode": "bm25",
+      "case_count": 20,
+      "recall_at_5": 1.0,
+      "mrr_at_10": 0.9375,
+      "ndcg_at_10": 0.9530803155822426,
+      "mean_latency_ms": 5.120119999628514,
+      "p95_latency_ms": 6.761199998436496,
+      "cases": [
+        {
+          "id": "raptor_tree_retrieval_en",
+          "query": "Which paper proposes recursive abstractive processing and a tree-organized retrieval system called RAPTOR?",
+          "ranked_paper_ids": [
+            "2401_18059v1_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 8.439900004304945
+        },
+        {
+          "id": "raptor_tree_retrieval_zh",
+          "query": "哪篇论文通过递归摘要构建树结构，从不同抽象层级检索长文档？",
+          "ranked_paper_ids": [
+            "2401_18059v1_2",
+            "2410_10762v4"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.417599993757904
+        },
+        {
+          "id": "longagent_128k",
+          "query": "使用 leader 和 member 多智能体协作把语言模型上下文扩展到 128K 的方法",
+          "ranked_paper_ids": [
+            "2402_11550v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.91889999830164
+        },
+        {
+          "id": "snapkv_cache",
+          "query": "observation window and clustered voting for KV cache compression during LLM generation",
+          "ranked_paper_ids": [
+            "2404_14469v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 6.149000008008443
+        },
+        {
+          "id": "graphreader_long_context",
+          "query": "将长文本构造成图并由智能体探索节点以增强长上下文推理的论文",
+          "ranked_paper_ids": [
+            "2401_18059v1_2",
+            "2408_07055v1",
+            "2402_11550v2",
+            "2406_14550v2",
+            "2506_06017v2",
+            "2025_acl_long_500",
+            "2410_10762v4"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 0.25,
+          "ndcg_at_10": 0.43067655807339306,
+          "latency_ms": 3.9628000085940585
+        },
+        {
+          "id": "longwriter_agentwrite",
+          "query": "AgentWrite divide-and-conquer plan for generating more than 10,000 words",
+          "ranked_paper_ids": [
+            "2408_07055v1",
+            "2025_acl_long_1341"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 6.761199998436496
+        },
+        {
+          "id": "longalign_packing",
+          "query": "LongAlign Self-Instruct data and packing strategies for long context alignment",
+          "ranked_paper_ids": [
+            "2401_18058v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.51820000691805
+        },
+        {
+          "id": "gradient_cache_500k",
+          "query": "使用 gradient caching 端到端训练并处理五十万 token 长文档摘要",
+          "ranked_paper_ids": [
+            "2501_01805v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 3.4087999956682324
+        },
+        {
+          "id": "context_aware_merging",
+          "query": "通过 context-aware hierarchical merging 减少长文档摘要幻觉",
+          "ranked_paper_ids": [
+            "2502_00977v2_2",
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.372600000351667
+        },
+        {
+          "id": "nexussum_agents",
+          "query": "hierarchical LLM agents for dialogue-to-description long-form narrative summarization",
+          "ranked_paper_ids": [
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.70569999399595
+        },
+        {
+          "id": "mapreduce_dependencies",
+          "query": "MapReduce long sequence processing that handles inter-chunk dependency and conflict",
+          "ranked_paper_ids": [
+            "2025_acl_long_1341"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.219800004852004
+        },
+        {
+          "id": "middle_position_bias",
+          "query": "大模型摘要中的 position bias 和 middle information utilization 问题",
+          "ranked_paper_ids": [
+            "2024_acl_long_153"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.39310000021942
+        },
+        {
+          "id": "aflow_mcts",
+          "query": "通过 Monte Carlo Tree Search 和代码表示自动搜索 Agent workflow",
+          "ranked_paper_ids": [
+            "2506_06017v2",
+            "2410_10762v4",
+            "2511_20693v1",
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.6309297535714575,
+          "latency_ms": 4.59219999902416
+        },
+        {
+          "id": "a2flow_abstraction",
+          "query": "self-adaptive abstraction operators for automatic agentic workflow generation",
+          "ranked_paper_ids": [
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.916399993817322
+        },
+        {
+          "id": "agent_workflow_generation",
+          "query": "自动生成和优化大模型智能体工作流的方法有哪些？",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2511_20693v1",
+            "2025_acl_long_500",
+            "2506_06017v2",
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 2.821099988068454
+        },
+        {
+          "id": "agentic_context_engineering",
+          "query": "evolving contexts for self-improving language models and avoiding context collapse",
+          "ranked_paper_ids": [
+            "2510_04618v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.7587000008206815
+        },
+        {
+          "id": "agentswift_value_search",
+          "query": "value-guided hierarchical search for efficient LLM agent design",
+          "ranked_paper_ids": [
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 4.498900001635775
+        },
+        {
+          "id": "cothssum_hierarchical",
+          "query": "结合 chain-of-thought reasoning 与 hierarchical segmentation 的结构化长文档摘要",
+          "ranked_paper_ids": [
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.162300003576092
+        },
+        {
+          "id": "divide_summarize_slm",
+          "query": "Divide and Summarize method that improves small language model text summarization",
+          "ranked_paper_ids": [
+            "frai_8_1604034"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.508000002009794
+        },
+        {
+          "id": "prompt_r1_rl",
+          "query": "small and large language model collaboration for automatic prompting using reinforcement learning",
+          "ranked_paper_ids": [
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 5.877199990209192
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "case_count": 20,
+      "recall_at_5": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.9959860394574094,
+      "mean_latency_ms": 62.73181499855127,
+      "p95_latency_ms": 72.53020000644028,
+      "cases": [
+        {
+          "id": "raptor_tree_retrieval_en",
+          "query": "Which paper proposes recursive abstractive processing and a tree-organized retrieval system called RAPTOR?",
+          "ranked_paper_ids": [
+            "2401_18059v1_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 72.53020000644028
+        },
+        {
+          "id": "raptor_tree_retrieval_zh",
+          "query": "哪篇论文通过递归摘要构建树结构，从不同抽象层级检索长文档？",
+          "ranked_paper_ids": [
+            "2401_18059v1_2",
+            "2410_10762v4"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 67.1884999901522
+        },
+        {
+          "id": "longagent_128k",
+          "query": "使用 leader 和 member 多智能体协作把语言模型上下文扩展到 128K 的方法",
+          "ranked_paper_ids": [
+            "2402_11550v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 68.01949998771306
+        },
+        {
+          "id": "snapkv_cache",
+          "query": "observation window and clustered voting for KV cache compression during LLM generation",
+          "ranked_paper_ids": [
+            "2404_14469v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 58.62209999759216
+        },
+        {
+          "id": "graphreader_long_context",
+          "query": "将长文本构造成图并由智能体探索节点以增强长上下文推理的论文",
+          "ranked_paper_ids": [
+            "2406_14550v2",
+            "2402_11550v2",
+            "2401_18059v1_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 64.61500001023524
+        },
+        {
+          "id": "longwriter_agentwrite",
+          "query": "AgentWrite divide-and-conquer plan for generating more than 10,000 words",
+          "ranked_paper_ids": [
+            "2408_07055v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.8720999880461
+        },
+        {
+          "id": "longalign_packing",
+          "query": "LongAlign Self-Instruct data and packing strategies for long context alignment",
+          "ranked_paper_ids": [
+            "2401_18058v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.438399988925084
+        },
+        {
+          "id": "gradient_cache_500k",
+          "query": "使用 gradient caching 端到端训练并处理五十万 token 长文档摘要",
+          "ranked_paper_ids": [
+            "2501_01805v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 61.015600003884174
+        },
+        {
+          "id": "context_aware_merging",
+          "query": "通过 context-aware hierarchical merging 减少长文档摘要幻觉",
+          "ranked_paper_ids": [
+            "2502_00977v2_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 62.29679999523796
+        },
+        {
+          "id": "nexussum_agents",
+          "query": "hierarchical LLM agents for dialogue-to-description long-form narrative summarization",
+          "ranked_paper_ids": [
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 63.75309999566525
+        },
+        {
+          "id": "mapreduce_dependencies",
+          "query": "MapReduce long sequence processing that handles inter-chunk dependency and conflict",
+          "ranked_paper_ids": [
+            "2025_acl_long_1341"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.32099999720231
+        },
+        {
+          "id": "middle_position_bias",
+          "query": "大模型摘要中的 position bias 和 middle information utilization 问题",
+          "ranked_paper_ids": [
+            "2024_acl_long_153"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 57.345499997609295
+        },
+        {
+          "id": "aflow_mcts",
+          "query": "通过 Monte Carlo Tree Search 和代码表示自动搜索 Agent workflow",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2506_06017v2",
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.87279999337625
+        },
+        {
+          "id": "a2flow_abstraction",
+          "query": "self-adaptive abstraction operators for automatic agentic workflow generation",
+          "ranked_paper_ids": [
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 59.855900006368756
+        },
+        {
+          "id": "agent_workflow_generation",
+          "query": "自动生成和优化大模型智能体工作流的方法有哪些？",
+          "ranked_paper_ids": [
+            "2511_20693v1",
+            "2506_06017v2",
+            "2410_10762v4"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.9197207891481876,
+          "latency_ms": 56.902700001955964
+        },
+        {
+          "id": "agentic_context_engineering",
+          "query": "evolving contexts for self-improving language models and avoiding context collapse",
+          "ranked_paper_ids": [
+            "2510_04618v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 58.95800000871532
+        },
+        {
+          "id": "agentswift_value_search",
+          "query": "value-guided hierarchical search for efficient LLM agent design",
+          "ranked_paper_ids": [
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 57.97019999590702
+        },
+        {
+          "id": "cothssum_hierarchical",
+          "query": "结合 chain-of-thought reasoning 与 hierarchical segmentation 的结构化长文档摘要",
+          "ranked_paper_ids": [
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 75.86339999397751
+        },
+        {
+          "id": "divide_summarize_slm",
+          "query": "Divide and Summarize method that improves small language model text summarization",
+          "ranked_paper_ids": [
+            "frai_8_1604034"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 66.23190001118928
+        },
+        {
+          "id": "prompt_r1_rl",
+          "query": "small and large language model collaboration for automatic prompting using reinforcement learning",
+          "ranked_paper_ids": [
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 60.96360000083223
+        }
+      ]
+    },
+    {
+      "mode": "hybrid_rerank",
+      "case_count": 20,
+      "recall_at_5": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "mean_latency_ms": 18111.324260001857,
+      "p95_latency_ms": 19474.457000003895,
+      "cases": [
+        {
+          "id": "raptor_tree_retrieval_en",
+          "query": "Which paper proposes recursive abstractive processing and a tree-organized retrieval system called RAPTOR?",
+          "ranked_paper_ids": [
+            "2401_18059v1_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18357.568999999785
+        },
+        {
+          "id": "raptor_tree_retrieval_zh",
+          "query": "哪篇论文通过递归摘要构建树结构，从不同抽象层级检索长文档？",
+          "ranked_paper_ids": [
+            "2401_18059v1_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 19469.898499999545
+        },
+        {
+          "id": "longagent_128k",
+          "query": "使用 leader 和 member 多智能体协作把语言模型上下文扩展到 128K 的方法",
+          "ranked_paper_ids": [
+            "2402_11550v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 16834.902200003853
+        },
+        {
+          "id": "snapkv_cache",
+          "query": "observation window and clustered voting for KV cache compression during LLM generation",
+          "ranked_paper_ids": [
+            "2404_14469v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17928.151400003117
+        },
+        {
+          "id": "graphreader_long_context",
+          "query": "将长文本构造成图并由智能体探索节点以增强长上下文推理的论文",
+          "ranked_paper_ids": [
+            "2406_14550v2",
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 19247.044900010224
+        },
+        {
+          "id": "longwriter_agentwrite",
+          "query": "AgentWrite divide-and-conquer plan for generating more than 10,000 words",
+          "ranked_paper_ids": [
+            "2408_07055v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18478.758900004323
+        },
+        {
+          "id": "longalign_packing",
+          "query": "LongAlign Self-Instruct data and packing strategies for long context alignment",
+          "ranked_paper_ids": [
+            "2401_18058v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18265.440600007423
+        },
+        {
+          "id": "gradient_cache_500k",
+          "query": "使用 gradient caching 端到端训练并处理五十万 token 长文档摘要",
+          "ranked_paper_ids": [
+            "2501_01805v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18566.932000001543
+        },
+        {
+          "id": "context_aware_merging",
+          "query": "通过 context-aware hierarchical merging 减少长文档摘要幻觉",
+          "ranked_paper_ids": [
+            "2502_00977v2_2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 19474.457000003895
+        },
+        {
+          "id": "nexussum_agents",
+          "query": "hierarchical LLM agents for dialogue-to-description long-form narrative summarization",
+          "ranked_paper_ids": [
+            "2025_acl_long_500"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17313.62230000377
+        },
+        {
+          "id": "mapreduce_dependencies",
+          "query": "MapReduce long sequence processing that handles inter-chunk dependency and conflict",
+          "ranked_paper_ids": [
+            "2025_acl_long_1341"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17194.9983999948
+        },
+        {
+          "id": "middle_position_bias",
+          "query": "大模型摘要中的 position bias 和 middle information utilization 问题",
+          "ranked_paper_ids": [
+            "2024_acl_long_153"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 16379.908100003377
+        },
+        {
+          "id": "aflow_mcts",
+          "query": "通过 Monte Carlo Tree Search 和代码表示自动搜索 Agent workflow",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2506_06017v2",
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17938.105199995334
+        },
+        {
+          "id": "a2flow_abstraction",
+          "query": "self-adaptive abstraction operators for automatic agentic workflow generation",
+          "ranked_paper_ids": [
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17359.739200008335
+        },
+        {
+          "id": "agent_workflow_generation",
+          "query": "自动生成和优化大模型智能体工作流的方法有哪些？",
+          "ranked_paper_ids": [
+            "2410_10762v4",
+            "2511_20693v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 20768.206900000223
+        },
+        {
+          "id": "agentic_context_engineering",
+          "query": "evolving contexts for self-improving language models and avoiding context collapse",
+          "ranked_paper_ids": [
+            "2510_04618v1"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 17513.47550000355
+        },
+        {
+          "id": "agentswift_value_search",
+          "query": "value-guided hierarchical search for efficient LLM agent design",
+          "ranked_paper_ids": [
+            "2506_06017v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 15870.087400006014
+        },
+        {
+          "id": "cothssum_hierarchical",
+          "query": "结合 chain-of-thought reasoning 与 hierarchical segmentation 的结构化长文档摘要",
+          "ranked_paper_ids": [
+            "cothssum_structured_long_document_summarization_vi"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18002.56470000022
+        },
+        {
+          "id": "divide_summarize_slm",
+          "query": "Divide and Summarize method that improves small language model text summarization",
+          "ranked_paper_ids": [
+            "frai_8_1604034"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18267.739499991876
+        },
+        {
+          "id": "prompt_r1_rl",
+          "query": "small and large language model collaboration for automatic prompting using reinforcement learning",
+          "ranked_paper_ids": [
+            "2511_01016v2"
+          ],
+          "recall_at_5": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "latency_ms": 18994.88349999592
+        }
+      ]
+    }
+  ]
+}
